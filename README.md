@@ -1,0 +1,6 @@
+- Search the internet for the latest greatest way to install
+  - Clojure
+  - Leiningen
+  - Clojure support for your IDE
+- Start a REPL in `src/squid_game/core.clj`
+- evaluate the forms in the comment block at the bottom of the file.
