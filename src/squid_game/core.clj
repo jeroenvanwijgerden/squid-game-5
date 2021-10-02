@@ -4,14 +4,18 @@
 
 (defn end-states
   [n-players n-panes]
-  (->> (let [players (range 1 (inc n-players))
-             p-success 1/2  ; use ratio 1/2 for exact outcomes
-         #_#_p-success 0.5] ; use double 0.5 for much faster calculations
+  (->> (let [end-state? (fn [alive pane]
+                          (or (empty? alive)
+                              (= pane n-panes)))
+             players (range 1 (inc n-players))
+             p-success 1/2]
          (loop [end-states []
                 states [[1 players 0 []]]]
            (if-let [[p alive pane player+died-at-pane :as state] (peek states)]
-             (if (and (seq alive)
-                      (< pane n-panes))
+             (if (end-state? alive pane)
+               (recur (conj end-states
+                            state)
+                      (pop states))
                (recur end-states
                       (conj (pop states)
                             [(* p p-success)
@@ -23,10 +27,7 @@
                              (inc pane)
                              (conj player+died-at-pane
                                    [(first alive)
-                                    (inc pane)])]))
-               (recur (conj end-states
-                            state)
-                      (pop states)))
+                                    (inc pane)])])))
              end-states)))))
 
 
