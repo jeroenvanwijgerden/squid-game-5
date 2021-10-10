@@ -91,7 +91,7 @@
               sort)
 
          
-         (oz/view! (->> aggregate-ps
+         (oz/view! (->> aggregated-ps
                         plot-values
                         plot))
          )
